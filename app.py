@@ -107,4 +107,4 @@ if st.session_state.active_files:
         cleanup_files()
 
 else:
-    st.info("Please upload the PDF files")
+    st.info("Please upload this week's lecture material in a PDF format")
