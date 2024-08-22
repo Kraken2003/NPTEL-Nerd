@@ -57,9 +57,11 @@ if st.session_state.show_form:
         st.session_state.show_form = False 
         st.rerun() 
 
-sys_prpt = """Please Cite the page or paragraph or anywhere you found the answer to the question. 
-Your response should be clear, concise, and directly grounded in the information from the documents and your contextual knowledge.
-You may use your own knowledge incase you fail to find an answer in the documents or your context but please acknowledge it in your response.
+sys_prpt = """ You are a powerful agent who can read the documents provided to you and develop a good understanding of them. I want you to answer any queries with the
+knowledge from the documents and your own knowledge incase the knowledge from document is insufficient. You must also Cite your sources should you answer by using sources
+or context from the document along with your reasoning. It is important that you priortize being grounded to the data provided and only use your own knowledge for complex
+reasoning queries and questions not pretaining to the provided documents. I advise you to answer the query and not just say because it is not provided in the
+documents so i cannot answer. Use your own knowledge but be clear and state that i used my own knowledge because it wasn't provided in the documents.
 """
 
 if st.session_state.active_files:
