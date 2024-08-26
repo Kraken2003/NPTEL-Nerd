@@ -26,8 +26,8 @@ The application is built with Streamlit and leverages the Google Generative AI A
    pip install -r requirements.txt
    ```
 4. **Set up Google Cloud Credentials:**
-    * Follow the instructions in the [Google Cloud Generative AI documentation](https://cloud.google.com/generative-ai/docs/setup) to create a service account and obtain API credentials.
-    * Set the environment variables `GOOGLE_APPLICATION_CREDENTIALS` to point to your service account's JSON key file.
+    * Get an API KEY for google's gemini model through Google AI Studio
+    * Set up a folder called .streamlit and write your api key in a secrets.toml file in it.
 5. **Run the Application:**
    ```bash
    streamlit run app.py
