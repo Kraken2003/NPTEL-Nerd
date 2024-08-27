@@ -1,84 +1,98 @@
-## NPTEL-Nerd: Question Answering with Gemini for NPTEL Assignments
+## NPTEL Assignment Assistant
 
-This repository provides a Streamlit web application that utilizes Google's Gemini family of Large Language Models (LLMs) to answer questions related to NPTEL assignments. Users can upload their assignment PDFs, ask questions about the content, and receive comprehensive answers with citations and reasoning directly from the uploaded documents.
-
-### Overview
-
-The application is built with Streamlit and leverages the Google Generative AI APIs for interaction with Gemini models. It allows users to upload assignments, ask questions via a chat interface, and receive responses based on the uploaded documents. The Gemini model is instructed to prioritize information from the uploaded files and only resort to its own knowledge when necessary.
+This repository contains the code for a Streamlit web application designed to assist users with their NPTEL assignments using Google's Generative AI (GenAI). The application allows users to upload PDF files, ask questions about the content, and receive answers from the AI model, potentially including citations from the uploaded documents.
 
 ### Features
 
-* **Interactive User Interface:**  A user-friendly Streamlit interface for uploading files, asking questions, and receiving answers.
-* **Document-Based Question Answering:** The Gemini model leverages the uploaded assignment PDFs as context to provide accurate and relevant answers.
-* **Citation and Reasoning:**  Responses include citations and reasoning to indicate the source of the information within the uploaded documents.
-* **Automated Cleanup:**  Uploaded files are automatically removed from Google Cloud storage after use, ensuring data privacy and security.
+* **PDF Upload:** Users can upload PDF files related to their NPTEL assignments.
+* **Interactive Chat:** Engage in a conversational chat interface to ask questions about the uploaded content.
+* **AI-Powered Responses:** Get accurate and insightful answers from the GenAI model, powered by Google's latest language models.
+* **Citation Integration:** The AI model can provide relevant citations from the uploaded PDF files, supporting its answers with evidence.
 
-### Installation
+### Technologies
 
-1. **Install Python:** Ensure Python 3.7 or above is installed on your system.
-2. **Create a Virtual Environment:**
+* **Streamlit:** Used to create the user-friendly web application interface.
+* **Google Generative AI:** Provides the AI model and file storage services.
+* **Python:** The primary programming language for the application.
+* **Other Libraries:** `protobuf`, `tempfile`, `time`, `os` are used for specific tasks.
+
+### Architecture Overview
+
+```mermaid
+graph LR
+    A["User Interface (Streamlit)"] --> B{"File Upload"}
+    B --> C["GenAI File Upload"]
+    C --> E["GenAI File Storage"]
+    A --> F["Chat Input"]
+    F --> G{"AI Response Generation"}
+    G --> H["GenAI Model"]
+    E --> G
+    H --> I["Chat Output"]
+    I --> A
+    A --> J{"File Cleanup"}
+    J --> K["GenAI File Deletion"]
+```
+
+The application's architecture is centered around a Streamlit UI that handles user interactions and manages file uploads and chat sessions. The GenAI API is used for file storage and AI response generation. Session state is used to maintain user context, including uploaded files and chat history.
+
+### Development Environment Setup
+
+1. **Install Python:** Ensure you have Python 3.7 or higher installed on your system.
+2. **Create Virtual Environment:** 
    ```bash
-   python3 -m venv venv-test
+   python -m venv venv-test
    source venv-test/bin/activate
    ```
 3. **Install Dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-4. **Set up Google Cloud Credentials:**
-    * Get an API KEY for google's gemini model through Google AI Studio
-    * Set up a folder called .streamlit and write your api key in a secrets.toml file in it.
+4. **Set up Google Cloud API Key:**
+   * Obtain your Google Cloud Platform API key and store it as an environment variable:
+     ```bash
+     export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/key.json"
+     ```
 5. **Run the Application:**
    ```bash
    streamlit run app.py
    ```
 
-### Usage
+### Testing
 
-1. **Open the application:** Access the Streamlit web application in your browser (usually `http://localhost:8501`).
-2. **Upload your assignment:** Click the "Upload Assignment" button and select your PDF file.
-3. **Ask your question:** Type your question in the chat interface and press Enter.
-4. **Receive the answer:** The application will generate a response based on the uploaded document, providing citations and reasoning for the information.
-5. **Repeat for more questions:**  Ask additional questions about the uploaded assignment.
+No automated tests are currently included. You can manually test the application by uploading PDF files, asking questions, and reviewing the AI-generated responses.
 
-### Code Breakdown
+### Deployment
 
-* **`app.py`:**
-    * **`upload_to_gemini`:** Uploads assignment PDFs to Google Cloud storage.
-    * **`cleanup_files`:**  Deletes uploaded files from Google Cloud storage.
-    * **Streamlit components:**  Provides file upload, chat input, and response display functionalities.
-    * **`genai.GenerativeModel`:**  Instantiates a Gemini model for text generation.
-    * **`generate_content`:** Processes user queries and generates responses using the Gemini model and uploaded documents.
-    * **Prompting:**  The prompt `sys_prpt` guides the Gemini model to prioritize information from the documents.
-    * **Response formatting:** Responses include citations and reasoning to indicate the source of information.
-* **`requirements.txt`:**
-    * **`google-generativeai`:** Enables interaction with Google's Generative AI APIs.
-    * **`protobuf`:**  Supports Protocol Buffers for data serialization.
-    * **`streamlit`:**  The library for building the Streamlit web application.
+The application can be deployed to a Streamlit cloud server or other suitable platforms.
+
+### Performance Considerations
+
+For optimal performance, consider optimizing file uploads and AI response generation. Consider using caching mechanisms to reduce redundant requests to GenAI services.
+
+### Security Considerations
+
+* **API Key Protection:** Securely store your Google Cloud API key and avoid exposing it in public repositories.
+* **Data Privacy:** Ensure that user-uploaded files and chat history are handled securely and in accordance with privacy regulations.
+* **Input Validation:** Implement appropriate input validation to prevent potential vulnerabilities caused by malicious user input.
+
+### Future Improvements
+
+* **Advanced Chat Features:** Implement features like multi-turn conversations, context awareness, and user history tracking.
+* **Advanced File Handling:** Allow users to upload multiple files, manage file organization, and control file deletion.
+* **Advanced AI Capabilities:** Explore other GenAI models and features for improved accuracy and insights.
 
 ### Contribution Guidelines
 
-Contributions are welcome! Feel free to open issues or submit pull requests. 
-
-Please follow these guidelines:
-
-* **Fork the repository:** Create a fork of the repository on your GitHub account.
-* **Create a branch:** Create a new branch from the `main` branch for your changes.
-* **Make your changes:** Implement your feature or fix the bug.
-* **Commit your changes:** Commit your changes with a descriptive message.
-* **Push your changes:** Push your branch to your forked repository.
-* **Open a pull request:** Open a pull request on the original repository, requesting to merge your changes into the `main` branch.
+Contributions are welcome! Please create a pull request with a detailed description of your changes.
 
 ### License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT LICENSE
 
-### Acknowledgments
+### Acknowledgements
 
-* Google for providing the Gemini family of LLMs and the Generative AI APIs.
-* The Streamlit team for creating a user-friendly framework for web application development.
+This project is built upon the work of Google Generative AI and the Streamlit framework. We acknowledge their contributions and the valuable resources they provide.
 
-### Disclaimer
+### Contact
 
-This project is for educational and research purposes only. It should not be used for any commercial or illegal activities. The authors are not responsible for any misuse or damages caused by this project. 
-
+[Insert contact information here] 
